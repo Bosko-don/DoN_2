@@ -1,0 +1,273 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Slate Color Scale CSS Variables */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-750: #243045;
+  --slate-800: #1e293b;
+  --slate-850: #151e2e;
+  --slate-900: #0f172a;
+  --slate-950: #020617;
+
+  /* Semantic Application Surfaces */
+  --app-bg: var(--slate-50);
+  --app-fg: var(--slate-900);
+  --surface-card: #ffffff;
+  --surface-header: #ffffff;
+  --surface-sidebar: var(--slate-50);
+  --surface-muted: var(--slate-100);
+  --border-color: var(--slate-200);
+  --border-color-subtle: var(--slate-100);
+
+  /* Default Mood Accent: "Calm" — soft blues/greens (Light Mode) */
+  --indigo-50: #f0fdfa;
+  --indigo-100: #ccfbf1;
+  --indigo-200: #99f6e4;
+  --indigo-500: #14b8a6;
+  --indigo-600: #0d9488;
+  --indigo-700: #0f766e;
+  --indigo-800: #115e59;
+  --indigo-900: #134e4a;
+  --indigo-950: #042f2e;
+  --accent-swatch: #0d9488;
+}
+
+.dark {
+  --app-bg: var(--slate-950);
+  --app-fg: var(--slate-100);
+  --surface-card: var(--slate-900);
+  --surface-header: var(--slate-900);
+  --surface-sidebar: var(--slate-950);
+  --surface-muted: var(--slate-850);
+  --border-color: var(--slate-800);
+  --border-color-subtle: var(--slate-850);
+
+  /* Default Mood Accent: "Calm" (Dark Mode) */
+  --indigo-50: #042f2e;
+  --indigo-100: #134e4a;
+  --indigo-200: #115e59;
+  --indigo-500: #2dd4bf;
+  --indigo-600: #14b8a6;
+  --indigo-700: #0d9488;
+  --indigo-800: #0f766e;
+  --indigo-900: #115e59;
+  --indigo-950: #042f2e;
+  --accent-swatch: #2dd4bf;
+}
+
+/* =========================================================
+   MOOD-BASED ACCENT THEMES (Layered on Light or Dark Base)
+   6 COMBINATIONS TOTAL:
+   1. Light + Calm
+   2. Dark + Calm
+   3. Light + Focus
+   4. Dark + Focus
+   5. Light + Energize
+   6. Dark + Energize
+   ========================================================= */
+
+/* --- Combination 1 & 2: "Calm" (Soft blues/greens) --- */
+:root[data-accent="calm"],
+html[data-accent="calm"]:not(.dark),
+body[data-accent="calm"]:not(.dark) {
+  --indigo-50: #f0fdfa;
+  --indigo-100: #ccfbf1;
+  --indigo-200: #99f6e4;
+  --indigo-500: #14b8a6;
+  --indigo-600: #0d9488;
+  --indigo-700: #0f766e;
+  --indigo-800: #115e59;
+  --indigo-900: #134e4a;
+  --indigo-950: #042f2e;
+  --accent-swatch: #0d9488;
+}
+
+.dark[data-accent="calm"],
+html.dark[data-accent="calm"],
+body.dark[data-accent="calm"] {
+  --indigo-50: #042f2e;
+  --indigo-100: #134e4a;
+  --indigo-200: #115e59;
+  --indigo-500: #2dd4bf;
+  --indigo-600: #14b8a6;
+  --indigo-700: #0d9488;
+  --indigo-800: #0f766e;
+  --indigo-900: #115e59;
+  --indigo-950: #042f2e;
+  --accent-swatch: #2dd4bf;
+}
+
+/* --- Combination 3 & 4: "Focus" (Muted neutrals with single sharp accent color, minimal visual distraction) --- */
+:root[data-accent="focus"],
+html[data-accent="focus"]:not(.dark),
+body[data-accent="focus"]:not(.dark) {
+  --slate-50: #fafafa;
+  --slate-100: #f4f4f5;
+  --slate-200: #e4e4e7;
+  --slate-300: #d4d4d8;
+  --slate-400: #a1a1aa;
+  --slate-500: #71717a;
+  --slate-600: #52525b;
+  --slate-700: #3f3f46;
+  --slate-800: #27272a;
+  --slate-900: #18181b;
+  --slate-950: #09090b;
+
+  --indigo-50: #eff6ff;
+  --indigo-100: #dbeafe;
+  --indigo-200: #bfdbfe;
+  --indigo-500: #3b82f6;
+  --indigo-600: #2563eb;
+  --indigo-700: #1d4ed8;
+  --indigo-800: #1e40af;
+  --indigo-900: #1e3a8a;
+  --indigo-950: #172554;
+  --accent-swatch: #2563eb;
+}
+
+.dark[data-accent="focus"],
+html.dark[data-accent="focus"],
+body.dark[data-accent="focus"] {
+  --slate-950: #09090b;
+  --slate-900: #121215;
+  --slate-850: #18181b;
+  --slate-800: #27272a;
+  --slate-750: #202024;
+  --slate-700: #3f3f46;
+
+  --indigo-50: #0f172a;
+  --indigo-100: #1e293b;
+  --indigo-200: #1e3a8a;
+  --indigo-500: #60a5fa;
+  --indigo-600: #3b82f6;
+  --indigo-700: #2563eb;
+  --indigo-800: #1d4ed8;
+  --indigo-900: #1e40af;
+  --indigo-950: #0b192c;
+  --accent-swatch: #3b82f6;
+}
+
+/* --- Combination 5 & 6: "Energize" (Warmer, more vibrant accent color — orange/amber) --- */
+:root[data-accent="energize"],
+html[data-accent="energize"]:not(.dark),
+body[data-accent="energize"]:not(.dark) {
+  --slate-50: #fafaf9;
+  --slate-100: #f5f5f4;
+  --slate-200: #e7e5e4;
+
+  --indigo-50: #fff7ed;
+  --indigo-100: #ffedd5;
+  --indigo-200: #fed7aa;
+  --indigo-500: #f97316;
+  --indigo-600: #ea580c;
+  --indigo-700: #c2410c;
+  --indigo-800: #9a3412;
+  --indigo-900: #7c2d12;
+  --indigo-950: #431407;
+  --accent-swatch: #ea580c;
+}
+
+.dark[data-accent="energize"],
+html.dark[data-accent="energize"],
+body.dark[data-accent="energize"] {
+  --slate-950: #120e0d;
+  --slate-900: #1c1615;
+  --slate-850: #261f1d;
+  --slate-800: #332b28;
+  --slate-750: #2d2523;
+
+  --indigo-50: #431407;
+  --indigo-100: #7c2d12;
+  --indigo-200: #9a3412;
+  --indigo-500: #fb923c;
+  --indigo-600: #f97316;
+  --indigo-700: #ea580c;
+  --indigo-800: #c2410c;
+  --indigo-900: #9a3412;
+  --indigo-950: #431407;
+  --accent-swatch: #fb923c;
+}
+
+@theme {
+  --color-slate-50: var(--slate-50);
+  --color-slate-100: var(--slate-100);
+  --color-slate-200: var(--slate-200);
+  --color-slate-300: var(--slate-300);
+  --color-slate-400: var(--slate-400);
+  --color-slate-500: var(--slate-500);
+  --color-slate-600: var(--slate-600);
+  --color-slate-700: var(--slate-700);
+  --color-slate-750: var(--slate-750);
+  --color-slate-800: var(--slate-800);
+  --color-slate-850: var(--slate-850);
+  --color-slate-900: var(--slate-900);
+  --color-slate-950: var(--slate-950);
+
+  --color-indigo-50: var(--indigo-50);
+  --color-indigo-100: var(--indigo-100);
+  --color-indigo-200: var(--indigo-200);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-900: var(--indigo-900);
+  --color-indigo-950: var(--indigo-950);
+}
+
+/* System Color Scheme */
+html {
+  color-scheme: light dark;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+/* Instantaneous, flicker-free base render */
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--app-bg);
+  color: var(--app-fg);
+}
+
+/* Print Media Optimization for Timetable and Document Export */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+  }
+
+  /* Hide navigation, sidebars, modal backdrops, and action buttons during printing */
+  header,
+  nav,
+  aside,
+  #modal-backdrop,
+  .no-print,
+  button:not(.print-include) {
+    display: none !important;
+  }
+
+  /* Expand printable container */
+  .printable-area {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}

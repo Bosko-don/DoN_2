@@ -1,0 +1,45 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Default deny all access to prevent open read/write
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+
+    // Tightly scoped user resources folder for single-user context (student_u01)
+    match /users/{userId}/units/{unitId}/resources/{resourceId}/{fileName} {
+      allow read: if userId == 'student_u01' 
+        && isValidId(unitId) 
+        && isValidId(resourceId);
+
+      allow write: if userId == 'student_u01' 
+        && isValidId(unitId) 
+        && isValidId(resourceId)
+        && request.resource.size > 0
+        && request.resource.size <= 25 * 1024 * 1024
+        && request.resource.contentType == 'application/pdf';
+
+      allow delete: if userId == 'student_u01' 
+        && isValidId(unitId) 
+        && isValidId(resourceId);
+    }
+
+    // Scoped root-level units folder for backwards compatibility
+    match /units/{unitId}/resources/{resourceId}/{fileName} {
+      allow read: if isValidId(unitId) && isValidId(resourceId);
+
+      allow write: if isValidId(unitId) 
+        && isValidId(resourceId)
+        && request.resource.size > 0
+        && request.resource.size <= 25 * 1024 * 1024
+        && request.resource.contentType == 'application/pdf';
+
+      allow delete: if isValidId(unitId) && isValidId(resourceId);
+    }
+  }
+}

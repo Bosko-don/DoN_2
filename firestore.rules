@@ -1,0 +1,47 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Default deny all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Units Collection - strictly scoped to student_u01
+    match /units/{unitId} {
+      allow read: if isValidId(unitId) && (resource == null || resource.data.userId == 'student_u01');
+      allow create: if isValidId(unitId) &&
+        request.resource.data.userId == 'student_u01' &&
+        request.resource.data.id == unitId &&
+        request.resource.data.title is string &&
+        request.resource.data.title.size() > 0 &&
+        request.resource.data.title.size() <= 200;
+      allow update: if isValidId(unitId) &&
+        resource.data.userId == 'student_u01' &&
+        request.resource.data.userId == 'student_u01' &&
+        request.resource.data.title is string &&
+        request.resource.data.title.size() > 0 &&
+        request.resource.data.title.size() <= 200;
+      allow delete: if isValidId(unitId) && resource.data.userId == 'student_u01';
+    }
+
+    // Timetable Collection - strictly scoped to student_u01
+    match /timetable/{entryId} {
+      allow read: if isValidId(entryId) && (resource == null || resource.data.userId == 'student_u01');
+      allow create: if isValidId(entryId) &&
+        request.resource.data.userId == 'student_u01' &&
+        request.resource.data.id == entryId &&
+        request.resource.data.unitId is string &&
+        request.resource.data.day is string;
+      allow update: if isValidId(entryId) &&
+        resource.data.userId == 'student_u01' &&
+        request.resource.data.userId == 'student_u01';
+      allow delete: if isValidId(entryId) && resource.data.userId == 'student_u01';
+    }
+  }
+}
+

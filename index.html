@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DoN (Diary of a Nerd) - University Study Organizer</title>
+    <meta name="description" content="Professional study management and AI learning assistant for university and college students." />
+    <meta property="og:title" content="DoN (Diary of a Nerd) - University Study Organizer" />
+    <meta property="og:description" content="Professional study management and AI learning assistant for university and college students." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#020617" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="DoN" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <script>
+      // React Fast Refresh preamble stub to prevent preamble detection errors
+      window.$RefreshReg$ = window.$RefreshReg$ || function() {};
+      window.$RefreshSig$ = window.$RefreshSig$ || function() { return function(type) { return type; }; };
+
+      // Clean up any stale dev-sw.js registrations that may have cached development modules
+      if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (var i = 0; i < registrations.length; i++) {
+            var reg = registrations[i];
+            if (reg && reg.active && reg.active.scriptURL && reg.active.scriptURL.indexOf('dev-sw') !== -1) {
+              reg.unregister();
+            }
+          }
+        }).catch(function() {});
+      }
+
+      (function() {
+        try {
+          var saved = localStorage.getItem('don_theme');
+          var isDark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+          var savedAccent = localStorage.getItem('don_accent_theme') || 'calm';
+          document.documentElement.setAttribute('data-accent', savedAccent);
+          document.documentElement.classList.add('theme-' + savedAccent);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100 min-h-screen">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

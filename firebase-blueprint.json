@@ -1,0 +1,180 @@
+{
+  "entities": {
+    "Unit": {
+      "title": "Unit",
+      "description": "A university academic unit module with unit code, title, and academic term.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the unit." },
+        "userId": { "type": "string", "description": "Student user ID." },
+        "unitCode": { "type": "string", "description": "Academic unit code (e.g. BIT 2101)." },
+        "code": { "type": "string", "description": "Alias for unitCode." },
+        "title": { "type": "string", "description": "Full title/name of the unit." },
+        "name": { "type": "string", "description": "Alias for title." },
+        "description": { "type": "string", "description": "Scope and syllabus overview." },
+        "yearOfStudy": { "type": "number", "description": "Year of study (1, 2, 3, 4, 5)." },
+        "semester": { "type": "string", "description": "Semester 1 or Semester 2." },
+        "term": { "type": "string", "description": "Formatted term display string." },
+        "color": { "type": "string", "description": "Color token or hex code for unit tagging." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp." }
+      },
+      "required": ["id", "userId", "title", "createdAt"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "A university or college course module (e.g. CS 301 - Operating Systems).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the course." },
+        "userId": { "type": "string", "description": "Placeholder current student user ID." },
+        "code": { "type": "string", "description": "Course code (e.g., CS301, ECON204)." },
+        "title": { "type": "string", "description": "Full name of the course." },
+        "description": { "type": "string", "description": "Short description of the course scope." },
+        "term": { "type": "string", "description": "Academic term or semester (e.g., Fall 2026)." },
+        "color": { "type": "string", "description": "Color token or hex code for course tagging." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp." }
+      },
+      "required": ["id", "userId", "code", "title", "createdAt"]
+    },
+    "Topic": {
+      "title": "Topic",
+      "description": "A specific academic topic or unit within a course (e.g. Concurrency & Synchronization).",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the topic." },
+        "userId": { "type": "string", "description": "Placeholder current student user ID." },
+        "courseId": { "type": "string", "description": "ID of the parent course." },
+        "name": { "type": "string", "description": "Name of the topic or syllabus unit." },
+        "description": { "type": "string", "description": "Detailed description or syllabus objectives." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["id", "userId", "courseId", "name", "createdAt"]
+    },
+    "Resource": {
+      "title": "Resource",
+      "description": "An academic study resource: typed note, uploaded PDF, or video lesson link.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique resource identifier." },
+        "userId": { "type": "string", "description": "Placeholder current student user ID." },
+        "courseId": { "type": "string", "description": "Course associated with the resource." },
+        "topicId": { "type": "string", "description": "Topic associated with the resource." },
+        "type": { "type": "string", "enum": ["note", "pdf", "video"], "description": "Type of resource." },
+        "title": { "type": "string", "description": "Title or headline of the resource." },
+        "content": { "type": "string", "description": "Typed note content or transcribed notes." },
+        "fileUrl": { "type": "string", "description": "Storage URL or data URL for uploaded PDF." },
+        "fileName": { "type": "string", "description": "Original file name if PDF." },
+        "videoUrl": { "type": "string", "description": "URL for video lesson (e.g. YouTube/lecture recording)." },
+        "tags": { "type": "array", "description": "List of search tags." },
+        "aiSummary": { "type": "string", "description": "AI-generated skimmable summary with key concepts." },
+        "aiSummaryDate": { "type": "string", "format": "date-time", "description": "When AI summary was generated." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Update timestamp." }
+      },
+      "required": ["id", "userId", "courseId", "topicId", "type", "title", "createdAt"]
+    },
+    "Result": {
+      "title": "Result",
+      "description": "A student test, quiz, or exam assessment score logged per course and topic.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier for the result." },
+        "userId": { "type": "string", "description": "Placeholder current student user ID." },
+        "courseId": { "type": "string", "description": "Course ID." },
+        "topicId": { "type": "string", "description": "Topic ID." },
+        "assessmentName": { "type": "string", "description": "Name of assessment (e.g., Midterm 1, Quiz 2)." },
+        "score": { "type": "number", "description": "Earned score." },
+        "maxScore": { "type": "number", "description": "Total possible score." },
+        "percentage": { "type": "number", "description": "Calculated score percentage." },
+        "date": { "type": "string", "format": "date", "description": "Date assessment was completed." },
+        "source": { "type": "string", "enum": ["manual", "auto_quiz"], "description": "Source of result." },
+        "quizId": { "type": "string", "description": "Optional linked auto-quiz ID." },
+        "notes": { "type": "string", "description": "Personal reflection or exam feedback notes." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["id", "userId", "courseId", "topicId", "assessmentName", "score", "maxScore", "date", "createdAt"]
+    },
+    "Quiz": {
+      "title": "Quiz",
+      "description": "An auto-generated multiple-choice quiz created from notes or PDFs.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique quiz identifier." },
+        "userId": { "type": "string", "description": "Placeholder current student user ID." },
+        "courseId": { "type": "string", "description": "Course ID." },
+        "topicId": { "type": "string", "description": "Topic ID." },
+        "resourceId": { "type": "string", "description": "Source resource ID." },
+        "title": { "type": "string", "description": "Quiz title." },
+        "questions": { "type": "array", "description": "Array of multiple-choice questions with options, correct answer index, and explanation." },
+        "completedAt": { "type": "string", "format": "date-time", "description": "Timestamp of completion." },
+        "score": { "type": "number", "description": "Score achieved on completion." },
+        "totalQuestions": { "type": "number", "description": "Total question count." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." }
+      },
+      "required": ["id", "userId", "courseId", "topicId", "title", "questions", "createdAt"]
+    },
+    "TimetableEntry": {
+      "title": "TimetableEntry",
+      "description": "A scheduled weekly lecture, tutorial, or lab session linked to a unit.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique timetable entry identifier." },
+        "userId": { "type": "string", "description": "Student user identifier." },
+        "unitId": { "type": "string", "description": "Reference to the associated academic unit." },
+        "day": {
+          "type": "string",
+          "enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "description": "Day of the week."
+        },
+        "startTime": { "type": "string", "description": "Class start time in HH:mm format." },
+        "endTime": { "type": "string", "description": "Class end time in HH:mm format." },
+        "venue": { "type": "string", "description": "Optional physical or virtual lecture venue." },
+        "lecturer": { "type": "string", "description": "Optional lecturer or instructor name." },
+        "notes": { "type": "string", "description": "Optional lecture notes or equipment reminders." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Update timestamp." }
+      },
+      "required": ["id", "userId", "unitId", "day", "startTime", "endTime", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/units/{unitId}": {
+      "schema": "Unit",
+      "description": "University academic units."
+    },
+    "/timetable/{entryId}": {
+      "schema": "TimetableEntry",
+      "description": "Weekly school timetable entries linked to units."
+    },
+    "/users/{userId}/timetable/{entryId}": {
+      "schema": "TimetableEntry",
+      "description": "Student weekly timetable sessions."
+    },
+    "/users/{userId}/units/{unitId}": {
+      "schema": "Unit",
+      "description": "University academic units for a student."
+    },
+    "/users/{userId}/courses/{courseId}": {
+      "schema": "Course",
+      "description": "University courses for a student."
+    },
+    "/users/{userId}/topics/{topicId}": {
+      "schema": "Topic",
+      "description": "Syllabus topics within courses for a student."
+    },
+    "/users/{userId}/resources/{resourceId}": {
+      "schema": "Resource",
+      "description": "Unified academic notes, PDFs, and video links."
+    },
+    "/users/{userId}/results/{resultId}": {
+      "schema": "Result",
+      "description": "Topic-level assessment and exam scores."
+    },
+    "/users/{userId}/quizzes/{quizId}": {
+      "schema": "Quiz",
+      "description": "AI-generated quizzes from study materials."
+    }
+  }
+}

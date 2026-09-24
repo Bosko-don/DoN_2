@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#4f46e5" />
+  <path d="M256 140 L350 185 L256 230 L162 185 Z" fill="#fbbf24" />
+  <rect x="250" y="230" width="12" height="40" fill="#fbbf24" />
+  <path d="M140 260 C180 250, 240 250, 256 270 C272 250, 332 250, 372 260 L372 360 C332 350, 272 350, 256 370 C240 350, 180 350, 140 360 Z" fill="#ffffff" />
+  <line x1="256" y1="270" x2="256" y2="370" stroke="#cbd5e1" stroke-width="4" />
+  <text x="256" y="440" font-family="system-ui, sans-serif" font-weight="900" font-size="72" fill="#ffffff" text-anchor="middle" letter-spacing="2">DoN</text>
+</svg>

@@ -1,0 +1,6 @@
+{
+  "name": "DoN (Diary of a Nerd)",
+  "description": "Professional study management and AI learning assistant for university and college students.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
